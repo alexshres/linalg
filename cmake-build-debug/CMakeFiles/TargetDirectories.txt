@@ -1,0 +1,3 @@
+/Users/alexshrestha/Desktop/cpp-projects/linalg/cmake-build-debug/CMakeFiles/linalg.dir
+/Users/alexshrestha/Desktop/cpp-projects/linalg/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/alexshrestha/Desktop/cpp-projects/linalg/cmake-build-debug/CMakeFiles/rebuild_cache.dir
