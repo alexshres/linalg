@@ -52,13 +52,13 @@ public:
     friend Matrix<U> operator-(const Matrix<U> &lhs, const U &rhs);
 
     template<class U>
-    friend Matrix<U> operator*(const Matrix<U> &lhs, const Matrix<U> &rhs);
+    friend Matrix<U> operator*(const Matrix<U> &lhs, const Matrix<U> &rhs); // dot product
 
     template<class U>
-    friend Matrix<U> operator*(const U &lhs, const Matrix<U> &rhs);
+    friend Matrix<U> operator*(const U &lhs, const Matrix<U> &rhs); // scalar product
 
     template<class U>
-    friend Matrix<U> operator*(const Matrix<U> &lhs, const U &rhs);
+    friend Matrix<U> operator*(const Matrix<U> &lhs, const U &rhs);  // scalar product
 
 private:
     int sub_to_index(int row, int col);
@@ -181,6 +181,11 @@ int Matrix<T>::get_num_rows() const {
 }
 
 template<class T>
+bool Matrix<T>::operator==(const Matrix<T> &rhs) {
+
+}
+
+template<class T>
 Matrix<T> operator+(const Matrix<T> &lhs, const Matrix<T> &rhs) {
     // assuming both matrices are of the same size
     // TODO update so there are conditions to pass before adding
@@ -196,6 +201,140 @@ Matrix<T> operator+(const Matrix<T> &lhs, const Matrix<T> &rhs) {
         temp_result[i] = lhs.linear_matrix[i] + rhs.linear_matrix[i];
 
     Matrix<T> result(num_rows, num_cols, temp_result);
+    delete[] temp_result;
+
+    return result;
+}
+
+template<class T>
+Matrix<T> operator+(const T &lhs, const Matrix<T> &rhs) {
+    int new_row = rhs.n_rows;
+    int new_col = rhs.n_cols;
+
+    int num_elements = new_row * new_col;
+    T *temp_result = new T[num_elements];
+
+    for (int i = 0; i < num_elements; i++) {
+        temp_result[i] = rhs.linear_matrix[i] + lhs;
+    }
+
+    Matrix<T> result(new_row, new_col, temp_result);
+    delete[] temp_result;
+
+    return result;
+}
+
+template<class T>
+Matrix<T> operator+(const Matrix<T> &lhs, const T &rhs) {
+    int new_rows = lhs.n_rows;
+    int new_cols = lhs.n_cols;
+    int num_elements = new_rows * new_cols;
+
+    T *temp_result = new T[num_elements];
+
+    for (int i = 0; i < num_elements; i++)
+        temp_result[i] = lhs.linear_matrix[i] + rhs;
+
+    Matrix<T> result(new_rows, new_cols, temp_result);
+    delete[] temp_result;
+
+    return result;
+}
+
+template<class T>
+Matrix<T> operator-(const Matrix<T> &lhs, const Matrix<T> &rhs) {
+    // assuming both matrices are of the same size
+    // TODO update so there are conditions to pass before adding
+
+    int num_rows = lhs.n_rows;
+    int num_cols = lhs.n_cols;
+
+    int num_elements = num_cols * num_rows;
+
+    T *temp_result = new T[num_elements];
+
+    for (int i = 0; i < num_elements; i++)
+        temp_result[i] = lhs.linear_matrix[i] - rhs.linear_matrix[i];
+
+    Matrix<T> result(num_rows, num_cols, temp_result);
+    delete[] temp_result;
+
+    return result;
+}
+
+template<class T>
+Matrix<T> operator-(const T &lhs, const Matrix<T> &rhs) {
+    int new_row = rhs.n_rows;
+    int new_col = rhs.n_cols;
+
+    int num_elements = new_row * new_col;
+    T *temp_result = new T[num_elements];
+
+    for (int i = 0; i < num_elements; i++) {
+        temp_result[i] = rhs.linear_matrix[i] - lhs;
+    }
+
+    Matrix<T> result(new_row, new_col, temp_result);
+    delete[] temp_result;
+
+    return result;
+}
+
+template<class T>
+Matrix<T> operator-(const Matrix<T> &lhs, const T &rhs) {
+    int new_rows = lhs.n_rows;
+    int new_cols = lhs.n_cols;
+    int num_elements = new_rows * new_cols;
+
+    T *temp_result = new T[num_elements];
+
+    for (int i = 0; i < num_elements; i++)
+        temp_result[i] = lhs.linear_matrix[i] - rhs;
+
+    Matrix<T> result(new_rows, new_cols, temp_result);
+    delete[] temp_result;
+
+    return result;
+}
+
+
+// TODO dot product
+template<class T>
+Matrix<T> operator*(const Matrix<T> &lhs, const Matrix<T> &rhs) {
+    return -1;
+}
+
+// scalar product
+template<class T>
+Matrix<T> operator*(const T &lhs, const Matrix<T> &rhs) {
+    int new_rows = rhs.n_rows;
+    int new_cols = rhs.n_cols;
+    int num_elements = new_rows * new_cols;
+
+    T *temp_result = new T[num_elements];
+
+    for (int i = 0; i < num_elements; i++)
+        temp_result[i] = lhs * rhs.linear_matrix[i];
+
+    Matrix<T> result(new_rows, new_cols, temp_result);
+    delete[] temp_result;
+
+    return result;
+
+}
+
+template<class T>
+Matrix<T> operator*(const Matrix<T> &lhs, const T &rhs) {
+    int new_rows = lhs.n_rows;
+    int new_cols = lhs.n_cols;
+    int num_elements = new_rows * new_cols;
+
+    T *temp_result = new T[num_elements];
+
+    for (int i = 0; i < num_elements; i++)
+        temp_result[i] = rhs * lhs.linear_matrix[i];
+
+    Matrix<T> result(new_rows, new_cols, temp_result);
     delete[] temp_result;
 
     return result;
