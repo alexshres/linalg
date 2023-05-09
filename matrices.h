@@ -159,4 +159,46 @@ T Matrix<T>::get_element(int row, int col) {
     return -1;
 }
 
+template<class T>
+bool Matrix<T>::set_element(int row, int col, T element_value) {
+    int lin_idx = sub_to_index(row, col);
+    if (lin_idx >= 0) {
+        linear_matrix[lin_idx] = element_value;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+template<class T>
+int Matrix<T>::get_num_cols() const {
+    return n_cols;
+}
+
+template<class T>
+int Matrix<T>::get_num_rows() const {
+    return n_rows;
+}
+
+template<class T>
+Matrix<T> operator+(const Matrix<T> &lhs, const Matrix<T> &rhs) {
+    // assuming both matrices are of the same size
+    // TODO update so there are conditions to pass before adding
+
+    int num_rows = lhs.n_rows;
+    int num_cols = lhs.n_cols;
+
+    int num_elements = num_cols * num_rows;
+
+    T *temp_result = new T[num_elements];
+
+    for (int i = 0; i < num_elements; i++)
+        temp_result[i] = lhs.linear_matrix[i] + rhs.linear_matrix[i];
+
+    Matrix<T> result(num_rows, num_cols, temp_result);
+    delete[] temp_result;
+
+    return result;
+}
+
 #endif //LINALG_MATRICES_H
