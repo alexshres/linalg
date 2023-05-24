@@ -4,6 +4,8 @@
 // NOTE:
 // when using templates, all definitions of a class are
 // included in the header file
+#include <iostream>
+#include <cstdlib>
 
 template<class T>
 class Matrix {
@@ -72,7 +74,7 @@ private:
 
 /* *************************************************
 CONSTRUCTOR / DESTRUCTOR FUNCTIONS
-/* *************************************************/
+************************************************  */
 
 template<class T>
 Matrix<T>::Matrix() {
@@ -148,7 +150,7 @@ bool Matrix<T>::resize(int num_rows, int num_cols) {
 
 /* *************************************************
 Element Functions
-/* ************************************************ */
+************************************************ */
 
 template<class T>
 T Matrix<T>::get_element(int row, int col) {
@@ -338,6 +340,11 @@ Matrix<T> operator*(const Matrix<T> &lhs, const T &rhs) {
     delete[] temp_result;
 
     return result;
+}
+
+template<class T>
+int Matrix<T>::sub_to_index(int row, int col) {
+    return (row * get_num_cols()) + col;
 }
 
 #endif //LINALG_MATRICES_H
