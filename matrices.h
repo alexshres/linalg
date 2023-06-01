@@ -310,7 +310,7 @@ Matrix<T> operator*(const Matrix<T> &lhs, const Matrix<T> &rhs) {
 
     for (int i = 0; i < lhs.n_cols; ++i) {
         for (int j = 0; j < rhs.n_cols; ++j) {
-            T element_value = 0;
+            T element_value = 0.0;
             for (int k = 0; k < lhs.n_cols; ++k) {
                 int lhs_lin_idx = (i * lhs.n_cols) + k;
                 int rhs_lin_idx = (k * rhs.n_cols) + j;
@@ -323,6 +323,7 @@ Matrix<T> operator*(const Matrix<T> &lhs, const Matrix<T> &rhs) {
     }
 
     Matrix<T> result(lhs.get_num_rows(), rhs.get_num_cols(), list_result);
+    delete[] list_result;
 
     return result;
 }
@@ -366,6 +367,20 @@ Matrix<T> operator*(const Matrix<T> &lhs, const T &rhs) {
 template<class T>
 int Matrix<T>::sub_to_index(int row, int col) {
     return (row * get_num_cols()) + col;
+}
+
+template<class T>
+bool Matrix<T>::operator==(const Matrix<T> &rhs) {
+    if (this->get_num_cols() != rhs.get_num_cols() && this->get_num_rows() != rhs.get_num_cols())
+        return false;
+
+    bool result = true;
+    for (int i = 0; i < this->n_elements; ++i) {
+        if (this->linear_matrix[i] != rhs.linear_matrix[i])
+            result = false;
+    }
+
+    return result;
 }
 
 #endif //LINALG_MATRICES_H

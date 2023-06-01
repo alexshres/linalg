@@ -22,9 +22,7 @@ int main() {
 
     Matrix<int> c(3, 2, list);
 
-    Matrix<int> d;
-
-    d = a * c;
+    Matrix<int> d = a * c;
 
     std::cout << "MATRIX D after MATMUL: " << std::endl;
     for (int i = 0; i < 2; ++i) {
