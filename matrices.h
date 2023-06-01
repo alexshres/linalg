@@ -23,7 +23,7 @@ public:
     bool resize(int num_rows, int num_cols);
 
     // Element access methods
-    T get_element(int row, int col);
+    T get_element(int row, int col) const;
 
     bool set_element(int row, int col, T element_value);
 
@@ -63,7 +63,7 @@ public:
     friend Matrix<U> operator*(const Matrix<U> &lhs, const U &rhs);  // scalar product
 
 private:
-    int sub_to_index(int row, int col);
+    int sub_to_index(int row, int col) const;
 
 private:
     T *linear_matrix;
@@ -153,7 +153,7 @@ Element Functions
 ************************************************ */
 
 template<class T>
-T Matrix<T>::get_element(int row, int col) {
+T Matrix<T>::get_element(int row, int col) const {
     int lin_idx = sub_to_index(row, col);
     if (lin_idx >= 0)
         return linear_matrix[lin_idx];
@@ -305,25 +305,17 @@ template<class T>
 Matrix<T> operator*(const Matrix<T> &lhs, const Matrix<T> &rhs) {
     assert(lhs.n_cols == rhs.n_rows);
 
-//    Matrix<T> result(lhs.get_num_rows(), rhs.get_num_cols());
-    T *list_result = new T[lhs.n_rows * rhs.n_cols];
+    Matrix<T> result(lhs.get_num_rows(), rhs.get_num_cols());
 
-    for (int i = 0; i < lhs.n_cols; ++i) {
+    for (int i = 0; i < lhs.n_rows; ++i) {
         for (int j = 0; j < rhs.n_cols; ++j) {
             T element_value = 0.0;
-            for (int k = 0; k < lhs.n_cols; ++k) {
-                int lhs_lin_idx = (i * lhs.n_cols) + k;
-                int rhs_lin_idx = (k * rhs.n_cols) + j;
-                element_value += lhs.linear_matrix[lhs_lin_idx] + rhs.linear_matrix[rhs_lin_idx];
-            }
+            for (int k = 0; k < lhs.n_cols; ++k)
+                element_value += (lhs.get_element(i, k) * rhs.get_element(k, j));
 
-            int result_lin_idx = (i * rhs.n_cols) + j;
-            list_result[result_lin_idx] = element_value;
+            result.set_element(i, j, element_value);
         }
     }
-
-    Matrix<T> result(lhs.get_num_rows(), rhs.get_num_cols(), list_result);
-    delete[] list_result;
 
     return result;
 }
@@ -365,7 +357,7 @@ Matrix<T> operator*(const Matrix<T> &lhs, const T &rhs) {
 }
 
 template<class T>
-int Matrix<T>::sub_to_index(int row, int col) {
+int Matrix<T>::sub_to_index(int row, int col) const {
     return (row * get_num_cols()) + col;
 }
 
