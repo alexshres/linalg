@@ -73,6 +73,15 @@ private:
 
 };
 
+/* *************************************************
+OTHER FUNCTIONS
+************************************************  */
+
+// Transpose returns a new matrix that is a transpose of
+// the source matrix
+template<class T>
+Matrix<T> transpose(const Matrix<T> &source);
+
 
 /* *************************************************
 CONSTRUCTOR / DESTRUCTOR FUNCTIONS
