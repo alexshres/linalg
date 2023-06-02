@@ -73,6 +73,15 @@ private:
 
 };
 
+/* *************************************************
+OTHER FUNCTIONS
+************************************************  */
+
+// Transpose returns a new matrix that is a transpose of
+// the source matrix
+template<class T>
+Matrix<T> transpose(const Matrix<T> &source);
+
 
 /* *************************************************
 CONSTRUCTOR / DESTRUCTOR FUNCTIONS
@@ -372,6 +381,22 @@ bool Matrix<T>::operator==(const Matrix<T> &rhs) {
     for (int i = 0; i < this->n_elements; ++i) {
         if (this->linear_matrix[i] != rhs.linear_matrix[i])
             result = false;
+    }
+
+    return result;
+}
+
+template<class T>
+Matrix<T> transpose(const Matrix<T> &source) {
+    int new_rows = source.get_num_cols();
+    int new_cols = source.get_num_rows();
+
+    Matrix<T> result(new_rows, new_cols);
+
+    for (int row = 0; row < new_rows; ++row) {
+        for (int col = 0; col < new_cols; ++col) {
+            result.set_element(row, col, source.get_element(col, row));
+        }
     }
 
     return result;
