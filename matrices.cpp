@@ -1,5 +1,7 @@
 #include "matrices.h"
 
+//TODO: returns upper triangular matrix
+Matrix<double> gauss_jordan(const Matrix<double> &source);
 
 int main() {
     int list[] = {1, 2, 3, 4, 5, 6};

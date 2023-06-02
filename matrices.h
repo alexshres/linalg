@@ -1,9 +1,11 @@
 #ifndef LINALG_MATRICES_H
 #define LINALG_MATRICES_H
 
-// NOTE:
-// when using templates, all definitions of a class are
-// included in the header file
+//TODO: GAUSS-JORDAN ELIMINATION
+//TODO: TRANSPOSE
+//TODO: INVERSE
+//TODO: RANK
+
 #include <iostream>
 #include <cstdlib>
 
