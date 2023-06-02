@@ -25,9 +25,16 @@ int main() {
     Matrix<int> c = a * b;
 
     std::cout << "MATRIX C after MATMUL: " << std::endl;
-    for (int i = 0; i < c.get_num_cols(); ++i) {
-        for (int j = 0; j < c.get_num_rows(); ++j)
+    for (int i = 0; i < c.get_num_rows(); ++i) {
+        for (int j = 0; j < c.get_num_cols(); ++j)
             std::cout << "Element (" << i << ", " << j << "): " << c.get_element(i, j) << std::endl;
+    }
+
+    Matrix<int> d = transpose<int>(a);
+    std::cout << "MATRIX D = transpose(a): " << std::endl;
+    for (int i = 0; i < d.get_num_rows(); ++i) {
+        for (int j = 0; j < d.get_num_cols(); ++j)
+            std::cout << "Element (" << i << ", " << j << "): " << d.get_element(i, j) << std::endl;
     }
 
     return EXIT_SUCCESS;

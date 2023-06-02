@@ -386,4 +386,20 @@ bool Matrix<T>::operator==(const Matrix<T> &rhs) {
     return result;
 }
 
+template<class T>
+Matrix<T> transpose(const Matrix<T> &source) {
+    int new_rows = source.get_num_cols();
+    int new_cols = source.get_num_rows();
+
+    Matrix<T> result(new_rows, new_cols);
+
+    for (int row = 0; row < new_rows; ++row) {
+        for (int col = 0; col < new_cols; ++col) {
+            result.set_element(row, col, source.get_element(col, row));
+        }
+    }
+
+    return result;
+}
+
 #endif //LINALG_MATRICES_H
