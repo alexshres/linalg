@@ -64,11 +64,9 @@ public:
     friend Matrix<U> operator*(const Matrix<U> &lhs, const U &rhs);  // scalar product
 
 private:
-    int sub_to_index(int row, int col) const;
-
-private:
     T *linear_matrix;
     int n_rows, n_cols, n_elements;
+    int sub_to_index(int row, int col) const;
 
 };
 
