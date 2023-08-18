@@ -32,6 +32,8 @@ public:
 
     int get_num_cols() const;
 
+	double getDeterminant() const;
+
     // Overloading operators
     bool operator==(const Matrix<T> &rhs);
 
@@ -66,8 +68,11 @@ public:
 private:
     T *linear_matrix;
     int n_rows, n_cols, n_elements;
-    int sub_to_index(int row, int col) const;
+	double determinant;
 
+
+    int sub_to_index(int row, int col) const;
+	void setDeterminant();
 };
 
 /* *************************************************
@@ -92,6 +97,8 @@ Matrix<T>::Matrix() {
 
     linear_matrix = new T[n_elements];
     linear_matrix[0] = 0.0;
+
+	setDeterminant();
 }
 
 template<class T>
@@ -104,6 +111,8 @@ Matrix<T>::Matrix(int num_rows, int num_cols) {
 
     for (int i = 0; i < n_elements; i++)
         linear_matrix[i] = 0.0;
+
+	setDeterminant();
 }
 
 template<class T>
@@ -116,6 +125,8 @@ Matrix<T>::Matrix(int num_rows, int num_cols, const T *input_data) {
 
     for (int i = 0; i < n_elements; i++)
         linear_matrix[i] = input_data[i];
+
+	setDeterminant();
 }
 
 template<class T>
@@ -123,10 +134,13 @@ Matrix<T>::Matrix(const Matrix<T> &input_matrix) {
     n_rows = input_matrix.get_num_rows();
     n_cols = input_matrix.get_num_cols();
     n_elements = n_rows * n_cols;
+	determinant = input_matrix.getDeterminant();
 
     linear_matrix = new T[n_elements];
     for (int i = 0; i < n_elements; i++)
         linear_matrix[i] = input_matrix.linear_matrix[i];
+
+	
 }
 
 template<class T>
@@ -152,6 +166,8 @@ bool Matrix<T>::resize(int num_rows, int num_cols) {
 
         return true;
     }
+
+	setDeterminant();
 
     return false;
 }
@@ -190,6 +206,10 @@ int Matrix<T>::get_num_rows() const {
     return n_rows;
 }
 
+template<class T>
+double Matrix<T>::getDeterminant() const {
+	return determinant;
+}
 //template<class T>
 //bool Matrix<T>::operator==(const Matrix<T> &rhs) {
 //
