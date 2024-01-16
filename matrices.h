@@ -1,9 +1,14 @@
+/*
+ * Author: Alex Shrestha
+ */
+
 #ifndef LINALG_MATRICES_H
 #define LINALG_MATRICES_H
 
-//TODO: GAUSS-JORDAN ELIMINATION
-//TODO: INVERSE
-//TODO: RANK
+// TODO: GAUSS-JORDAN ELIMINATION
+// TODO: INVERSE
+// TODO: RANK
+// TODO: maybe switch from array to vectors?
 
 #include <iostream>
 #include <cstdlib>
